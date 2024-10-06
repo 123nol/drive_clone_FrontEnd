@@ -47,6 +47,7 @@ import { Link } from 'react-router-dom';
 
 
 const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
+  //now try the search thingy 
   
   const[folder,setFolder]=React.useState(false)
   const[upFile,setUpFile]=React.useState([])
