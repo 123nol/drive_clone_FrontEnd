@@ -21,7 +21,7 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-const Folder = ({data,getFolderFiles}) => {
+const Folder = React.memo(({data,getFolderFiles}) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -142,6 +142,6 @@ const Folder = ({data,getFolderFiles}) => {
     </div>
     
   )
-}
+});
 
 export default Folder

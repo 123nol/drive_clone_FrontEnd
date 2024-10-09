@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Paper } from '@mui/material'
 import axiosConfig from '../Config/AxiosConfig'
+import {Button} from '@mui/material'
+import {TextField} from '@mui/material'
 
 const SharePop = ({fileId,pOut,setpOut}) => {
   const[reciever,setReciever]=useState("")
