@@ -184,9 +184,9 @@ const File = React.memo( ({data,folders}) => {
         
 
       </div>
-      <MovePop pop={pop} setPop={setPop} file={data.id} folders={folders}/>
-      <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id}/>
-      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id}/>
+      <MovePop pop={pop} setPop={setPop} file={data.id} folders={folders} caller={`file`}/>
+      <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id} caller={`file`}/>
+      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id} caller={`file`}/>
 
    
 

@@ -22,10 +22,18 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
+
+import RenameFilePop from './RenameFilePop';
+import SharePop from './SharePop';
+
+
 const Folder = ({data,getFolderFiles}) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [fOut,setfOut]=useState(false)
+
+  const[pOut,setpOut]=useState(false)
   const opened = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,9 +96,13 @@ const Folder = ({data,getFolderFiles}) => {
           Download
         </MenuItem>
       </StyledMenu>
+      <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id} caller={`file`}/>
+      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id} caller={`file`}/>
         
 
     </div>
+
+    
       
 
     

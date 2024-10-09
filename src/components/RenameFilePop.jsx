@@ -6,7 +6,7 @@ import {TextField} from '@mui/material'
 import {Button} from '@mui/material'
 
 
-const RenameFilePop = ({fileId,fOut,setfOut}) => {
+const RenameFilePop = ({fileId,fOut,setfOut,caller}) => {
   const [fileName, setfileName]=useState("")
   const[error,setError]=useState(false)
   const handleFolderRename=async()=>{
@@ -15,8 +15,13 @@ const RenameFilePop = ({fileId,fOut,setfOut}) => {
       setError(true)
       return
     }
-    const res=await axiosConfig.post("/home/user/renameFile",{"id":fileId,"newName":fileName})
-    
+    if(caller=="file")
+    {const res=await axiosConfig.post("/home/user/renameFile",{"id":fileId,"newName":fileName})
+    }
+    else{
+      const res=await axiosConfig.post("/home/user/renameFolder",{"id":fileId,"newName":fileName})
+
+    }
   }
     
     catch(err){

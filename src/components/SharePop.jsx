@@ -4,7 +4,7 @@ import axiosConfig from '../Config/AxiosConfig'
 import {Button} from '@mui/material'
 import {TextField} from '@mui/material'
 
-const SharePop = ({fileId,pOut,setpOut}) => {
+const SharePop = ({fileId,pOut,setpOut,caller}) => {
   const[reciever,setReciever]=useState("")
   const[error,setError]=useState(false)
   const handleShare=async()=>{
@@ -13,12 +13,27 @@ const SharePop = ({fileId,pOut,setpOut}) => {
       return
 
     }
-    const res=await axiosConfig.post("/home/user/share",{
+    
+    try{
+      if(caller=="file")
+      {const res=await axiosConfig.post("/home/user/share",{
       "userEmail":reciever,
       "fileId":fileId,
       "allPerm":true
-    })
-    setpOut(false)
+    })}
+    else{
+      const res=await axiosConfig.post("/home/user/shareChosenFolder",{
+        "userEmail":reciever,
+        "folderId":fileId,
+        "allPerm":true
+      })
+
+    }
+    setpOut(false)}
+    catch(err)
+    {
+      console.log(err)
+    }
   }
   // you can add a checklist that specifies the permission granted to the user that is receiving it
 
