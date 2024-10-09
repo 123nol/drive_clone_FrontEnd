@@ -33,7 +33,7 @@ const File = React.memo( ({data,folders}) => {
   const opened = Boolean(anchorEl);
   const handleTrash=async(trashId)=>{
     try
-    {const res=axiosConfig.post("/home/user/trashFile",{"fileId":trashId})}
+    {const res= await axiosConfig.post("/home/user/trashFile",{"fileId":trashId})}
     catch(err){
       console.log(err)
     }

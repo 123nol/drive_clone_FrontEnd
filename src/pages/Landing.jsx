@@ -4,10 +4,12 @@ import axiosConfig from '../Config/AxiosConfig'
 
 import { useEffect,useState } from 'react'
 import ContentList from '../components/ContentList'
+import Folder from '../components/Folder'
+import Divider from '@mui/material/Divider'
 
 
 
-const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,searchTerm}) => {
+const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,searchTerm,getFolderFiles}) => {
   // const[files,setFiles]=useState([])
   // const chosenFiles = files?.filter((val)=>
   //   {if(searchTerm==""){
@@ -66,7 +68,13 @@ const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,se
      
 
   //   </div>
+  <div style={{display:"flex",flexDirection:"column",gap:"20px",paddingTop:"40px"}}>
+    <div style={{width:"100vw",height:"fit-content", display:"flex", flexDirection:"row", justifyContent:"flex-start",paddingLeft:"180px", overflow:"hidden",}}>{folders?.map((folder,index)=> <Folder key={index} data={folder} getFolderFiles={getFolderFiles}/>)}</div>
+    
+    
   <ContentList chosenFiles={files} folders={folders}/>
+
+  </div>
   )
 }
 

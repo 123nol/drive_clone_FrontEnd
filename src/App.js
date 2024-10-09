@@ -82,7 +82,7 @@ function App() {
       
       
       <Route path="/home/user" element={logged?(<Layout files={files} setFiles={setFiles} folders={folders} setFolders={setFolders}  user={user}/ >):(<Navigate replace to={"/"}/>)}>
-      <Route index element={<Landing token={token} files={files} setFiles={setFiles} getFiles={getFiles}  folders={folders} setFolders={setFolders} getFolders={getFolders}  user={user}/>}/>
+      <Route index element={<Landing token={token} files={files} setFiles={setFiles} getFiles={getFiles}  folders={folders} setFolders={setFolders} getFolders={getFolders}  user={user} getFolderFiles={getFolderFiles}/>}/>
       <Route path="/home/user/shared" element={<Shared   user={user}/>}/>
       <Route path="/home/user/Folders" element={<Folders folders={folders} setFolders={setFolders} getFolders={getFolders} getFolderFiles={getFolderFiles}  user={user}/>}/>
       <Route path="/home/user/Folders/:name" element={<FolderFiles folderFiles={folderFiles} folders={folders}  user={user}/>}/>
