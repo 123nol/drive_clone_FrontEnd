@@ -20,6 +20,8 @@ import MovePop from "./MovePop"
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 
 import RenameFilePop from './RenameFilePop';
+import SharePop from './SharePop';
+import axiosConfig from '../Config/AxiosConfig';
 
 {/* <Divider sx={{ my: 0.5 }} /> */}
 
@@ -27,7 +29,17 @@ const File = React.memo( ({data,folders}) => {
   const [fOut,setfOut]=useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const[pop,setPop]=useState(false)
+  const[pOut,setpOut]=useState(false)
   const opened = Boolean(anchorEl);
+  const handleTrash=async(trashId)=>{
+    try
+    {const res=axiosConfig.post("/home/user/trashFile",{"fileId":trashId})}
+    catch(err){
+      console.log(err)
+    }
+
+
+  }
   const handleClick = (event) => {
     event.stopPropagation(); 
     setAnchorEl(event.currentTarget);
@@ -146,9 +158,21 @@ const File = React.memo( ({data,folders}) => {
           <ArchiveIcon />
           Move
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={()=>{
+          handleClose();
+          setpOut(true);
+        }
+      
+      } disableRipple>
           <MoreHorizIcon />
           Share
+        </MenuItem>
+        <MenuItem onClick={()=>{
+          handleClose();
+          handleTrash(data.id);
+          }} disableRipple>
+          <ArchiveIcon />
+          Trash
         </MenuItem>
         
         <MenuItem onClick={handleClose} disableRipple>
@@ -162,6 +186,7 @@ const File = React.memo( ({data,folders}) => {
       </div>
       <MovePop pop={pop} setPop={setPop} file={data.id} folders={folders}/>
       <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id}/>
+      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id}/>
 
    
 
