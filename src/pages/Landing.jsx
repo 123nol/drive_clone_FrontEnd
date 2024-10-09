@@ -69,7 +69,7 @@ const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,se
 
   //   </div>
   <div style={{display:"flex",flexDirection:"column",gap:"20px",paddingTop:"40px"}}>
-    <div style={{width:"100vw",height:"fit-content", display:"flex", flexDirection:"row", justifyContent:"flex-start",paddingLeft:"180px",paddingRight:"180px", overflow:"hidden",}}>{folders?.map((folder,index)=> <Folder key={index} data={folder} getFolderFiles={getFolderFiles}/>)}</div>
+    <div style={{width:"100vw",height:"fit-content", display:"flex", flexDirection:"row", justifyContent:"flex-start",paddingLeft:"180px",paddingRight:"180px", overflow:"hidden", flexWrap:"wrap"}}>{folders?.map((folder,index)=> <Folder key={index} data={folder} getFolderFiles={getFolderFiles}/>)}</div>
     
     
   <ContentList chosenFiles={files} folders={folders}/>
