@@ -7,6 +7,7 @@ import Shared from "./pages/Shared";
 import Folders from "./pages/Folders";
 import axiosConfig from "./Config/AxiosConfig";
 import FolderFiles from "./pages/FolderFiles";
+import TrashPage from "./pages/TrashPage";
 
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
       <Route path="/home/user/shared" element={<Shared   user={user}/>}/>
       <Route path="/home/user/Folders" element={<Folders folders={folders} setFolders={setFolders} getFolders={getFolders} getFolderFiles={getFolderFiles}  user={user}/>}/>
       <Route path="/home/user/Folders/:name" element={<FolderFiles folderFiles={folderFiles} folders={folders}  user={user}/>}/>
+      <Route path="/home/user/Trash" element={<TrashPage user={user}/>}/>
 
 
       </Route>

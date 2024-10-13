@@ -15,13 +15,10 @@ const RenameFilePop = ({fileId,fOut,setfOut,caller}) => {
       setError(true)
       return
     }
-    if(caller=="file")
-    {const res=await axiosConfig.post("/home/user/renameFile",{"id":fileId,"newName":fileName})
-    }
-    else{
-      const res=await axiosConfig.post("/home/user/renameFolder",{"id":fileId,"newName":fileName})
-
-    }
+    
+    const res=await axiosConfig.post("/home/user/renameFile",{"id":fileId,"newName":fileName})
+    
+    
   }
     
     catch(err){
@@ -43,7 +40,7 @@ const RenameFilePop = ({fileId,fOut,setfOut,caller}) => {
     <Button onClick={()=>{setfOut(false)
       setfileName("");
     }} >Cancel</Button>
-    <Button onClick={handleFolderRename} >Rename</Button>
+    <Button onClick={()=>{handleFolderRename();}} >Rename</Button>
 
     </div>
   

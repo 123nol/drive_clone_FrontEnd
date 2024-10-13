@@ -13,59 +13,38 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 
 import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import MovePop from "./MovePop"
+
 
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 
-import RenameFilePop from './RenameFilePop';
-import SharePop from './SharePop';
+
 import axiosConfig from '../Config/AxiosConfig';
 
-import fileDownloader from 'js-file-downloader';
-import axios from 'axios';
+import { StyledMenu } from './StyledMenu';
 
 {/* <Divider sx={{ my: 0.5 }} /> */}
 
-const File = React.memo( ({data,folders}) => {
-  const [fOut,setfOut]=useState(false)
+const TrashFile =  ({data}) => {
+
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const[pop,setPop]=useState(false)
-  const[pOut,setpOut]=useState(false)
+ 
   const opened = Boolean(anchorEl);
 
-  const handleDonwnload=async()=>{
+  const handleRecover=async()=>{
     try
-    {
-      const res=await axios.get(data.secureUrl,{
-        responseType:"blob"
-      });
-      fileDownloader(res.data,data.fileName);
-
-
-
-    }
-    catch(err){
-      console.log(err)
-    }
-
-
-
-
+   { const res=await axiosConfig.post("/home/user/recoverFile",{
+      fileId:data.id
+    })
+}
+catch(err){
+  console.log(err);
+}
   }
+  
 
 
 
-  const handleTrash=async(trashId)=>{
-    try
-    {const res= await axiosConfig.post("/home/user/trashFile",{"fileId":trashId})}
-    catch(err){
-      console.log(err)
-    }
-
-
-  }
+ 
   const handleClick = (event) => {
     event.stopPropagation(); 
     setAnchorEl(event.currentTarget);
@@ -74,47 +53,7 @@ const File = React.memo( ({data,folders}) => {
     
     setAnchorEl(null);
   };
-  const StyledMenu = styled((props) => (
-    <Menu
-      elevation={0}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      {...props}
-      
-    />
-  ))(({ theme }) => ({
-    '& .MuiPaper-root': {
-      borderRadius: 6,
-      marginTop: theme.spacing(1),
-      minWidth: 350,
-      color:
-        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-      boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: '4px 0',
-      },
-      '& .MuiMenuItem-root': {
-        '& .MuiSvgIcon-root': {
-          fontSize: 18,
-          color: theme.palette.text.secondary,
-          marginRight: theme.spacing(1.5),
-        },
-        '&:active': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-    },
-  }));
+
   return (
     <div style={{position:'relative',minWidth:"1500px"}}>
     
@@ -169,59 +108,35 @@ const File = React.memo( ({data,folders}) => {
           Duplicate
         </MenuItem>
         <Divider sx={{ my: 0.5 }} /> */}
+        
         <MenuItem onClick={()=>{
           handleClose();
-          setfOut(true);
-          }} disableRipple>
-          <EditIcon />
-          Rename
-        </MenuItem>
-        <MenuItem onClick={()=>{
-          handleClose();
-          setPop(true)
-
-        }} disableRipple>
-          <ArchiveIcon />
-          Move
-        </MenuItem>
-        <MenuItem onClick={()=>{
-          handleClose();
-          setpOut(true);
-        }
-      
-      } disableRipple>
-          <MoreHorizIcon />
-          Share
-        </MenuItem>
-        <MenuItem onClick={()=>{
-          handleClose();
-          handleTrash(data.id);
+          handleRecover();
+          
           }} disableRipple>
           <ArchiveIcon />
-          Trash
+          Recover
         </MenuItem>
         
         <MenuItem onClick={()=>{
           handleClose();
-          handleDonwnload();
+        
           }} disableRipple>
           <ArchiveIcon />
-          Download
+          Delete
         </MenuItem>
         
       </StyledMenu>
         
 
       </div>
-      <MovePop pop={pop} setPop={setPop} file={data.id} folders={folders} caller={`file`}/>
-      <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id} />
-      <SharePop pOut={pOut} data={data} setpOut={setpOut} fileId={data.id} caller="file"/>
+      
 
    
 
 
     </div>
   )
-});
+}
 
-export default File
+export default TrashFile

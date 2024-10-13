@@ -26,12 +26,16 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import RenameFilePop from './RenameFilePop';
 import SharePop from './SharePop';
 
+import RenameFolderPop from './RenameFolderPop';
+
+
 
 const Folder = ({data,getFolderFiles}) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [fOut,setfOut]=useState(false)
+  const[rOut,setrOut]=useState(false)
 
   const[pOut,setpOut]=useState(false)
   const opened = Boolean(anchorEl);
@@ -96,8 +100,8 @@ const Folder = ({data,getFolderFiles}) => {
           Download
         </MenuItem>
       </StyledMenu>
-      <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id} caller={`file`}/>
-      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id} caller={`file`}/>
+      <RenameFolderPop rOut={rOut} setrOut={setrOut} folderId={data.id} />
+      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id} caller="folder"/>
         
 
     </div>

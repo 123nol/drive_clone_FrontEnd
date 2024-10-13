@@ -20,61 +20,65 @@ import MovePop from "./MovePop"
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 
 import RenameFilePop from './RenameFilePop';
+import SharePop from './SharePop';
+
+import { StyledMenu } from './StyledMenu';
 
 {/* <Divider sx={{ my: 0.5 }} /> */}
 
-const SharedFile = ({data,folders}) => {
+const SharedFile = ({data,folders,curUser}) => {
   const [fOut,setfOut]=useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const[pop,setPop]=useState(false)
+  const[pOut,setpOut]=useState(false)
+  
   const opened = Boolean(anchorEl);
+
+  const sharedDetail=data?.shared.find((detail)=>{
+    
+    return(detail.user==curUser.email);
+  });
+  const shareRenamePerm=sharedDetail.allPermission;
+
+  // const handleShare=()=>{
+  //   if(sharedDetail.allPermission==true){
+  //     setpOut(true);
+  //   }
+  //   else()
+    
+
+  // }
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleDonwnload=async()=>{
+    try
+    {
+      const res=await axios.get(data.secureUrl,{
+        responseType:"blob"
+      });
+      fileDownloader(res.data,data.fileName);
+
+
+
+    }
+    catch(err){
+      console.log(err)
+    }
+
+
+
+
+  }
+
+
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const StyledMenu = styled((props) => (
-    <Menu
-      elevation={0}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      {...props}
-      
-    />
-  ))(({ theme }) => ({
-    '& .MuiPaper-root': {
-      borderRadius: 6,
-      marginTop: theme.spacing(1),
-      minWidth: 350,
-      color:
-        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-      boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: '4px 0',
-      },
-      '& .MuiMenuItem-root': {
-        '& .MuiSvgIcon-root': {
-          fontSize: 18,
-          color: theme.palette.text.secondary,
-          marginRight: theme.spacing(1.5),
-        },
-        '&:active': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-    },
-  }));
+ 
   return (
     <div style={{position:'relative',minWidth:"1500px"}}>
     
@@ -88,9 +92,7 @@ const SharedFile = ({data,folders}) => {
           
          
         </div>
-        <div style={{minWidth:"10%", }} >
-          {data?.lastModifiedDate.substring(0,10)}
-        </div>
+       
         <div style={{minWidth:"20%",textAlign:"center",height:"100%",display:"flex",alignItems:"center", gap:"7px"}}>
           <div style={{background:"black", borderRadius:"100%",minWidth:"10%",minHeight:"50%"}}>
               {/* image */}
@@ -98,6 +100,9 @@ const SharedFile = ({data,folders}) => {
           <div>
             {data?.ownerEmail}
           </div>
+        </div>
+        <div style={{minWidth:"10%", }} >
+          {sharedDetail?.sharedDate.substring(0,10)}
         </div>
         <div style={{width:"60px"}}>
           {Math.floor(data?.size/1000)} KBs
@@ -132,23 +137,26 @@ const SharedFile = ({data,folders}) => {
         <MenuItem onClick={()=>{
           handleClose();
           setfOut(true);
-          }} disableRipple  disabled={true}>
+          }} disableRipple  disabled={!shareRenamePerm}>
           <EditIcon />
           Rename
         </MenuItem>
+        
         <MenuItem onClick={()=>{
           handleClose();
-          setPop(true)
-
-        }} disableRipple  disabled={true}>
-          <ArchiveIcon />
-          Move
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple  disabled={true}>
-          <MoreHorizIcon />
+          setpOut(true);
+        }
+      
+      } disableRipple>
+          <MoreHorizIcon disabled={!shareRenamePerm} />
           Share
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={()=>{
+          handleClose();
+          handleDonwnload();
+
+
+        }} disableRipple>
           <ArchiveIcon />
           Download
         </MenuItem>
@@ -156,8 +164,9 @@ const SharedFile = ({data,folders}) => {
         
 
       </div>
-      <MovePop pop={pop} setPop={setPop} file={data.id} folders={folders}/>
+      
       <RenameFilePop fOut={fOut} setfOut={setfOut} fileId={data.id}/>
+      <SharePop pOut={pOut} setpOut={setpOut} fileId={data.id} data={data}caller="file"/>
 
    
 

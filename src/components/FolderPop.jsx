@@ -36,7 +36,7 @@ const FolderPop = (props) => {
         <Button onClick={()=>{props.setFolder(false)
           setFolderName("");
         }} >Cancel</Button>
-        <Button onClick={handleFolderUpload} >Create</Button>
+        <Button onClick={()=>{handleFolderUpload();}} >Create</Button>
 
         </div>
       

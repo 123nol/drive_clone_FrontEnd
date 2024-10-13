@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import axiosConfig from '../Config/AxiosConfig';
 import React from 'react'
 
-const RenamePop = ({folderId,rOut,setrOut}) => {
+const RenameFolderPop = ({folderId,rOut,setrOut}) => {
   const [folderName, setFolderName]=useState("")
   const[error,setError]=useState(false)
   const handleFolderRename=async()=>{
@@ -38,7 +38,7 @@ const RenamePop = ({folderId,rOut,setrOut}) => {
     <Button onClick={()=>{setrOut(false)
       setFolderName("");
     }} >Cancel</Button>
-    <Button onClick={handleFolderRename} >Create</Button>
+    <Button onClick={()=>{handleFolderRename();}} >Create</Button>
 
     </div>
   
@@ -51,4 +51,4 @@ const RenamePop = ({folderId,rOut,setrOut}) => {
 )
 }
 
-export default RenamePop
+export default RenameFolderPop
