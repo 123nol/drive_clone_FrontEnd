@@ -33,7 +33,7 @@ import SharePop from './SharePop';
 
 
 
-const SharedFolder = ({data,getFolderFiles}) => {
+const SharedFolder = ({data,getFolderFiles,curUser}) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);

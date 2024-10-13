@@ -28,7 +28,7 @@ const Shared = (user) => {
     {sharedFiles?.map((file,index)=><SharedFile key={index} data={file} curUser={user}/>)} 
     </div>
     <div>
-    {sharedFolders?.map((file,index)=><SharedFolder key={index} data={file}/>)}
+    {sharedFolders?.map((file,index)=><SharedFolder key={index} data={file} curUser={user}/>)}
     </div> 
     </div>
 

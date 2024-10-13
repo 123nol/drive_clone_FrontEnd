@@ -33,10 +33,13 @@ const FolderPop = (props) => {
         <TextField name="folder" id="standard-basic" label="Untitled Folder" variant="outlined" onChange={(e)=>setFolderName(e.target.value)} value={folderName}  fullWidth/>
         <br/>
         <div className='cancel_create' style={{display:"flex", flexDirection:"row-reverse", width:"fit-content", marginTop:"50px"}}>
-        <Button onClick={()=>{props.setFolder(false)
+        <Button onClick={()=>{props.setFolder(false);
           setFolderName("");
         }} >Cancel</Button>
-        <Button onClick={()=>{handleFolderUpload();}} >Create</Button>
+        <Button onClick={()=>{handleFolderUpload();
+        props.setFolder(false);
+
+        }} >Create</Button>
 
         </div>
       

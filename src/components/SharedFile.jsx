@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Paper } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
 import Divider from '@mui/material/Divider'
@@ -23,12 +23,15 @@ import RenameFilePop from './RenameFilePop';
 import SharePop from './SharePop';
 
 import { StyledMenu } from './StyledMenu';
+import axios from 'axios';
+import fileDownloader from "js-file-downloader"
+
 
 {/* <Divider sx={{ my: 0.5 }} /> */}
 
 const SharedFile = ({data,folders,curUser}) => {
   const [fOut,setfOut]=useState(false)
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const[pop,setPop]=useState(false)
   const[pOut,setpOut]=useState(false)
   

@@ -62,7 +62,9 @@ const MovePop = ({file,pop,setPop,folders}) => {
           setFolderName("");
           setFolderId({})
         }} >Cancel</Button>
-        <Button onClick={()=>{handleMove}} >Move</Button>
+        <Button onClick={()=>{handleMove();
+          setPop(false);
+        }} >Move</Button>
 
         </div>
         </Paper>
