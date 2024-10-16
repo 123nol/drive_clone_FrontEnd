@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axiosConfig from '../Config/AxiosConfig'
 import SharedFile from '../components/SharedFile'
 import SharedFolder from '../components/SharedFolder'
-const Shared = (user) => {
+const Shared = ({user,getFolderFiles}) => {
   const[sharedFiles,setSharedFiles]=useState([])
   const[sharedFolders,setSharedFolders]=useState([])
   //here we have to make a call to two endpoints, one of which will return a list of shared folder and the other which will return a list of shared files.
@@ -28,7 +28,7 @@ const Shared = (user) => {
     {sharedFiles?.map((file,index)=><SharedFile key={index} data={file} curUser={user}/>)} 
     </div>
     <div>
-    {sharedFolders?.map((file,index)=><SharedFolder key={index} data={file} curUser={user}/>)}
+    {sharedFolders?.map((file,index)=><SharedFolder key={index} data={file} curUser={user} getFolderFiles={getFolderFiles}/>)}
     </div> 
     </div>
 

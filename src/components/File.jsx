@@ -30,12 +30,13 @@ import { StyledMenu } from './StyledMenu';
 
 {/* <Divider sx={{ my: 0.5 }} /> */}
 
-const File = ({data,folders}) => {
+const File = ({data,folders,user}) => {
   const [fOut,setfOut]=useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const[pop,setPop]=useState(false)
   const[pOut,setpOut]=useState(false)
   const opened = Boolean(anchorEl);
+  const fileOwner=data.ownerEmail==user.email;
 
   const handleDonwnload=async()=>{
     try
@@ -98,7 +99,7 @@ const File = ({data,folders}) => {
               {/* image */}
           </div>
           <div>
-            {data?.ownerEmail}
+            {fileOwner?`Me`:data?.ownerEmail}
           </div>
         </div>
         <div style={{width:"60px"}}>
@@ -142,7 +143,8 @@ const File = ({data,folders}) => {
           handleClose();
           setPop(true)
 
-        }} disableRipple>
+        }} disableRipple 
+        disabled={!fileOwner}>
           <ArchiveIcon />
           Move
         </MenuItem>
@@ -151,14 +153,19 @@ const File = ({data,folders}) => {
           setpOut(true);
         }
       
-      } disableRipple>
+      } disableRipple
+      
+      
+      >
           <MoreHorizIcon />
           Share
         </MenuItem>
         <MenuItem onClick={()=>{
           handleClose();
           handleTrash(data.id);
-          }} disableRipple>
+          }} disableRipple
+          disabled={!fileOwner}
+          >
           <ArchiveIcon />
           Trash
         </MenuItem>

@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider'
 
 
 
-const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,searchTerm,getFolderFiles}) => {
+const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,searchTerm,getFolderFiles,user}) => {
   // const[files,setFiles]=useState([])
   // const chosenFiles = files?.filter((val)=>
   //   {if(searchTerm==""){
@@ -73,7 +73,7 @@ const Landing = ({token,files,setFiles,getFiles,folders,setFolders,getFolders,se
     </div>
     
     
-  <ContentList chosenFiles={files} folders={folders}/>
+  <ContentList chosenFiles={files} folders={folders} user={user}/>
   
 
   </div>
