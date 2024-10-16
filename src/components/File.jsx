@@ -45,6 +45,13 @@ const File = ({data,folders,user}) => {
         responseType:"blob"
       });
       fileDownloader(res.data,data.fileName);
+      // await new fileDownloader({
+      //   url: data.secureUrl,  // The Cloudinary secure URL for the file
+      //   filename: data.fileName, // Optional: the file name for the download
+      //   forceDesktopMode: true, // Ensures better compatibility for desktop downloads
+      //   autoStart: true,  // Automatically starts the download
+      // });
+
 
 
 
