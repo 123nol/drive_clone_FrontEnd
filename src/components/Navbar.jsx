@@ -44,16 +44,18 @@ import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 
+import {VisuallyHiddenInput,Search,SearchIconWrapper,StyledInputBase,StyledMenu} from './NavbarStyled'
 
 
-const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
+
+const Navbar = React.memo(({files,setFiles,folders,setFolders,searchTerm,setSearchTerm}) => {
   //now try the search thingy 
   
   const[folder,setFolder]=React.useState(false)
-  const[upFile,setUpFile]=React.useState([])
-  // const handleInputChange = React.useCallback((e) => {
-  //   setSearchTerm(e.target.value);
-  // }, []);
+
+  const handleInputChange = React.useCallback((e) => {
+    setSearchTerm(e.target.value);
+  }, []);
   
   
   const handleUpload=async (event)=>{
@@ -97,60 +99,7 @@ const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
 
   }
   
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-   
-  });
   
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width:'20ch'
-      // [theme.breakpoints.up('sm')]: {
-      //   width: '20ch',
-      //   // '&:focus': {
-      //   //   width: '20ch',
-      //   // },
-      // },
-    },
-  }));
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -167,47 +116,7 @@ const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
     
     setOpen(false);
   };
-  const StyledMenu = styled((props) => (
-    <Menu
-      elevation={0}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      {...props}
-      
-    />
-  ))(({ theme }) => ({
-    '& .MuiPaper-root': {
-      borderRadius: 6,
-      marginTop: theme.spacing(1),
-      minWidth: 310,
-      color:
-        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-      boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: '4px 0',
-      },
-      '& .MuiMenuItem-root': {
-        '& .MuiSvgIcon-root': {
-          fontSize: 18,
-          color: theme.palette.text.secondary,
-          marginRight: theme.spacing(1.5),
-        },
-        '&:active': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-    },
-  }));
+ 
   const DrawerList = (
     <Box sx={{ width: 350 }} role="presentation"  >
       <IconButton onClick={toggleDrawer(false)} style={{marginLeft:"8px"}}>
@@ -220,7 +129,7 @@ const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
         {['Home', 'My drive', 'Shared with me'].map((text, index) => (
           <Link to={index==0?"/home/user":`/home/user/${text}`}>
             {/* when the listitems are clicked it will set the searchTerm to null so that the search term doesnt persist over diffrent pages */}
-          <ListItem key={text} disablePadding>
+          <ListItem key={text} disablePadding onClick={()=>setSearchTerm("")}>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -235,7 +144,7 @@ const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
       <List>
         {['Folders', 'Trash'].map((text, index) => (
           <Link to={`/home/user/${text}`}>
-          <ListItem key={text} disablePadding >
+          <ListItem key={text} disablePadding onClick={()=>setSearchTerm("")} >
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -336,8 +245,8 @@ const Navbar = React.memo(({files,setFiles,folders,setFolders}) => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              // value={searchTerm}
-              // onChange={handleInputChange}
+              value={searchTerm}
+              onChange={handleInputChange}
                 
               
             />

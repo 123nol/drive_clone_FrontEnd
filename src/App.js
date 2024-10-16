@@ -16,7 +16,7 @@ function App() {
   const[files,setFiles]=useState([])
   const[folders,setFolders]=useState([])
   const[folderFiles,setFolderFiles]=useState([])
-  // const[searchTerm,setSearchTerm]=useState("")
+  const[searchTerm,setSearchTerm]=useState("")
   const[user,setUser]=useState({})
   // with this, the currnet user will be passed and the components like the file component can check the owner property of the file and if it matches the the email of the user passsed through this state, they can display the owner as " me" instead of the email of the currnet user themselves
   const getFolderFiles=async(folderId)=>{
@@ -82,12 +82,12 @@ function App() {
       <Route path="/" element={<AuthPage logged={logged} setLogged={setLogged} token={token} setToken={setToken}/>}/>
       
       
-      <Route path="/home/user" element={logged?(<Layout files={files} setFiles={setFiles} folders={folders} setFolders={setFolders}  user={user}/ >):(<Navigate replace to={"/"}/>)}>
-      <Route index element={<Landing token={token} files={files} setFiles={setFiles} getFiles={getFiles}  folders={folders} setFolders={setFolders} getFolders={getFolders}  user={user} getFolderFiles={getFolderFiles}/>}/>
-      <Route path="/home/user/shared" element={<Shared   user={user} getFolderFiles={getFolderFiles}/>}/>
-      <Route path="/home/user/Folders" element={<Folders folders={folders} setFolders={setFolders} getFolders={getFolders} getFolderFiles={getFolderFiles}  user={user}/>}/>
+      <Route path="/home/user" element={logged?(<Layout files={files} setFiles={setFiles} folders={folders} setFolders={setFolders}  user={user} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/ >):(<Navigate replace to={"/"}/>)}>
+      <Route index element={<Landing token={token} files={files} setFiles={setFiles} getFiles={getFiles}  folders={folders} setFolders={setFolders} getFolders={getFolders}  user={user} getFolderFiles={getFolderFiles} searchTerm={searchTerm}/> }/>
+      <Route path="/home/user/shared" element={<Shared   user={user} getFolderFiles={getFolderFiles} searchTerm={searchTerm}/>}/>
+      <Route path="/home/user/Folders" element={<Folders folders={folders} setFolders={setFolders} getFolders={getFolders} getFolderFiles={getFolderFiles}  user={user} searchTerm={searchTerm}/>}/>
       <Route path="/home/user/Folders/:name" element={<FolderFiles folderFiles={folderFiles} folders={folders}  user={user}/>}/>
-      <Route path="/home/user/Trash" element={<TrashPage user={user}/>}/>
+      <Route path="/home/user/Trash" element={<TrashPage user={user} searchTerm={searchTerm}/>}/>
 
 
       </Route>
