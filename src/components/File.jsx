@@ -89,7 +89,7 @@ const File = ({data,folders,user}) => {
     <div style={{position:'relative',minWidth:"1500px"}}>
     
       <div style={{minWidth:"70%", display:"flex", borderBottom:"solid grey 0.2px ",height:"50px",alignItems:"center",fontSize:"13px",overflowX:"hidden"} } className='singleFile'>
-        <div style={{minWidth:"40%",backgroud:"red",display:"flex", alignItems:"center",gap:"5px"}}>
+        <div style={{minWidth:"30%",backgroud:"red",display:"flex", alignItems:"center",gap:"5px"}}>
           <PictureAsPdfOutlined/>
           <p >
             {data?.fileName}
@@ -98,6 +98,10 @@ const File = ({data,folders,user}) => {
           
          
         </div>
+        <div style={{minWidth:"10%", }} >
+          {data?.fileType}
+        </div>
+        
         <div style={{minWidth:"10%", }} >
           {data?.lastModifiedDate.substring(0,10)}
         </div>
