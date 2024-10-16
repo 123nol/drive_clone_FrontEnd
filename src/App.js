@@ -34,7 +34,7 @@ function App() {
     try{
       const response= await axiosConfig.get('http://localhost:8080/home/user/curuser')
       setUser(response.data.user)
-      console.log(user)
+      
     }
     catch(err){
       console.log(err)
@@ -46,7 +46,7 @@ function App() {
     {
       const response=await axiosConfig.get("/home/user/alldocs")
       setFiles(response.data)
-      console.log(response.data)
+      
       // console.log(files)
 
       
@@ -61,7 +61,7 @@ function App() {
     {
       const response=await axiosConfig.get("/home/user/folders")
       setFolders(response.data)
-      console.log(response.data)
+     
       // console.log(files)
 
       
